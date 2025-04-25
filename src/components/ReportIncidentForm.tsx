@@ -3,10 +3,6 @@ import {
   Box,
   TextField,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Paper,
   Typography,
   Chip,
@@ -15,7 +11,6 @@ import {
   Alert,
   Fade,
   InputAdornment,
-  Tooltip,
 } from '@mui/material';
 import { AISafetyIncident, Severity } from '../types';
 import AddIcon from '@mui/icons-material/Add';
@@ -31,7 +26,7 @@ interface ReportIncidentFormProps {
   onSubmit: (incident: Omit<AISafetyIncident, 'id' | 'reportedDate'>) => void;
 }
 
-const severityConfig = {
+const severityConfig: Record<Severity, { color: string; icon: React.ReactElement; label: string }> = {
   Low: {
     color: '#4caf50',
     icon: <InfoIcon />,
@@ -138,7 +133,7 @@ export const ReportIncidentForm: React.FC<ReportIncidentFormProps> = ({ onSubmit
                   fullWidth
                   label="Title"
                   value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
                   error={!!errors.title}
                   helperText={errors.title}
                   InputProps={{

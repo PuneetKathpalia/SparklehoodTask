@@ -28,7 +28,7 @@ interface IncidentListProps {
   onSortChange: (order: SortOrder) => void;
 }
 
-const severityConfig = {
+const severityConfig: Record<Severity, { color: string; icon: React.ReactElement; label: string }> = {
   Low: {
     color: '#4caf50',
     icon: <InfoIcon />,
@@ -96,7 +96,7 @@ export const IncidentList: React.FC<IncidentListProps> = ({
               <Box sx={{ display: 'flex', gap: 1 }}>
                 <Chip 
                   label="All" 
-                  onClick={() => handleFilterChange('All')} 
+                  onClick={() => handleFilterChange('All' as Severity | 'All')} 
                   color={filterValue === 'All' ? 'primary' : 'default'}
                   variant={filterValue === 'All' ? 'filled' : 'outlined'}
                 />
