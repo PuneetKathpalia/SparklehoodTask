@@ -4,11 +4,6 @@ import {
   Card,
   CardContent,
   Typography,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Grid,
   Collapse,
   Chip,
@@ -16,7 +11,6 @@ import {
   Tooltip,
   Divider,
   Paper,
-  Badge,
 } from '@mui/material';
 import { format } from 'date-fns';
 import { AISafetyIncident, Severity, SortOrder } from '../types';
@@ -92,8 +86,8 @@ export const IncidentList: React.FC<IncidentListProps> = ({
           borderColor: 'divider',
         }}
       >
-        <Grid container spacing={3} alignItems="center">
-          <Grid item xs={12} md={6}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3 }}>
+          <Box sx={{ flex: 1 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: { xs: 2, md: 0 } }}>
               <FilterListIcon sx={{ mr: 1, color: 'primary.main' }} />
               <Typography variant="subtitle1" sx={{ mr: 2, fontWeight: 500 }}>
@@ -109,25 +103,37 @@ export const IncidentList: React.FC<IncidentListProps> = ({
                 <Chip 
                   label={`Low (${getSeverityCount('Low')})`} 
                   onClick={() => handleFilterChange('Low')} 
-                  color={filterValue === 'Low' ? 'success' : 'default'}
+                  sx={{ 
+                    backgroundColor: filterValue === 'Low' ? severityConfig.Low.color + '15' : 'transparent',
+                    color: filterValue === 'Low' ? severityConfig.Low.color : 'text.primary',
+                    borderColor: severityConfig.Low.color,
+                  }}
                   variant={filterValue === 'Low' ? 'filled' : 'outlined'}
                 />
                 <Chip 
                   label={`Medium (${getSeverityCount('Medium')})`} 
                   onClick={() => handleFilterChange('Medium')} 
-                  color={filterValue === 'Medium' ? 'warning' : 'default'}
+                  sx={{ 
+                    backgroundColor: filterValue === 'Medium' ? severityConfig.Medium.color + '15' : 'transparent',
+                    color: filterValue === 'Medium' ? severityConfig.Medium.color : 'text.primary',
+                    borderColor: severityConfig.Medium.color,
+                  }}
                   variant={filterValue === 'Medium' ? 'filled' : 'outlined'}
                 />
                 <Chip 
                   label={`High (${getSeverityCount('High')})`} 
                   onClick={() => handleFilterChange('High')} 
-                  color={filterValue === 'High' ? 'error' : 'default'}
+                  sx={{ 
+                    backgroundColor: filterValue === 'High' ? severityConfig.High.color + '15' : 'transparent',
+                    color: filterValue === 'High' ? severityConfig.High.color : 'text.primary',
+                    borderColor: severityConfig.High.color,
+                  }}
                   variant={filterValue === 'High' ? 'filled' : 'outlined'}
                 />
               </Box>
             </Box>
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </Box>
+          <Box sx={{ flex: 1 }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <SortIcon sx={{ mr: 1, color: 'primary.main' }} />
               <Typography variant="subtitle1" sx={{ mr: 2, fontWeight: 500 }}>
@@ -148,8 +154,8 @@ export const IncidentList: React.FC<IncidentListProps> = ({
                 />
               </Box>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Paper>
 
       {incidents.length === 0 ? (

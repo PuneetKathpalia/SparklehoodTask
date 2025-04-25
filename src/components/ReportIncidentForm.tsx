@@ -9,7 +9,6 @@ import {
   MenuItem,
   Paper,
   Typography,
-  Grid,
   Chip,
   IconButton,
   Collapse,
@@ -133,8 +132,8 @@ export const ReportIncidentForm: React.FC<ReportIncidentFormProps> = ({ onSubmit
       <Collapse in={isExpanded} timeout={300}>
         <Fade in={isExpanded} timeout={500}>
           <Box component="form" onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+              <Box>
                 <TextField
                   fullWidth
                   label="Title"
@@ -149,10 +148,9 @@ export const ReportIncidentForm: React.FC<ReportIncidentFormProps> = ({ onSubmit
                       </InputAdornment>
                     ),
                   }}
-                  sx={{ mb: 2 }}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Box>
+              <Box>
                 <TextField
                   fullWidth
                   label="Description"
@@ -169,10 +167,9 @@ export const ReportIncidentForm: React.FC<ReportIncidentFormProps> = ({ onSubmit
                       </InputAdornment>
                     ),
                   }}
-                  sx={{ mb: 2 }}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Box>
+              <Box>
                 <Typography variant="subtitle2" sx={{ mb: 1, display: 'flex', alignItems: 'center' }}>
                   <WarningIcon sx={{ mr: 1, color: 'primary.main' }} />
                   Select Severity Level:
@@ -196,24 +193,24 @@ export const ReportIncidentForm: React.FC<ReportIncidentFormProps> = ({ onSubmit
                     />
                   ))}
                 </Box>
-              </Grid>
-              <Grid item xs={12}>
+              </Box>
+              <Box>
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
                   fullWidth
                   size="large"
-                  startIcon={<AddIcon />}
-                  sx={{ 
+                  sx={{
                     py: 1.5,
+                    textTransform: 'none',
                     fontWeight: 600,
                   }}
                 >
-                  Submit Report
+                  Submit Incident Report
                 </Button>
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
           </Box>
         </Fade>
       </Collapse>

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Container, Typography, Box, CssBaseline, ThemeProvider, createTheme, Paper, AppBar, Toolbar, IconButton, useMediaQuery, Link, Avatar, Tooltip, Divider, Button } from '@mui/material';
+import { Container, Typography, Box, CssBaseline, ThemeProvider, createTheme, Paper, AppBar, Toolbar, IconButton, useMediaQuery, Link, Avatar, Tooltip, Divider } from '@mui/material';
 import { IncidentList } from './components/IncidentList';
 import { ReportIncidentForm } from './components/ReportIncidentForm';
 import { mockIncidents } from './data/mockData';
