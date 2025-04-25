@@ -22,6 +22,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import WarningIcon from '@mui/icons-material/Warning';
 import ErrorIcon from '@mui/icons-material/Error';
 import InfoIcon from '@mui/icons-material/Info';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 interface IncidentListProps {
   incidents: AISafetyIncident[];
@@ -81,8 +82,9 @@ export const IncidentList: React.FC<IncidentListProps> = ({
       <Paper 
         elevation={0} 
         sx={{ 
-          p: { xs: 2, sm: 3 }, 
+          p: { xs: 2.5, sm: 3.5 }, 
           mb: { xs: 2, sm: 3 }, 
+          mx: { xs: 3, sm: 6, md: 8, lg: 10 },
           backgroundColor: 'background.paper',
           borderRadius: 2,
           border: '1px solid',
@@ -192,7 +194,8 @@ export const IncidentList: React.FC<IncidentListProps> = ({
           <Card 
             key={incident.id} 
             sx={{ 
-              mb: { xs: 1.5, sm: 2 }, 
+              mb: { xs: 2, sm: 3 }, 
+              mx: { xs: 3, sm: 6, md: 8, lg: 10 },
               overflow: 'hidden',
               position: 'relative',
               '&::before': {
@@ -206,29 +209,86 @@ export const IncidentList: React.FC<IncidentListProps> = ({
               }
             }}
           >
-            <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, flex: 1 }}>
-                  <Tooltip title={expandedId === incident.id ? "Hide Details" : "View Details"}>
-                    <IconButton 
-                      onClick={() => handleExpand(incident.id)}
+            <CardContent sx={{ p: { xs: 2.5, sm: 3.5 } }}>
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                <Tooltip title={expandedId === incident.id ? "Hide Details" : "View Details"}>
+                  <IconButton 
+                    onClick={() => handleExpand(incident.id)}
+                    sx={{ 
+                      color: 'primary.main',
+                      transition: 'transform 0.2s',
+                      transform: expandedId === incident.id ? 'rotate(180deg)' : 'none',
+                      mt: 0.5
+                    }}
+                  >
+                    {expandedId === incident.id ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                  </IconButton>
+                </Tooltip>
+                <Box sx={{ flex: 1 }}>
+                  <Box sx={{ mb: 2.5 }}>
+                    <Typography 
+                      variant="h6" 
+                      component="div" 
                       sx={{ 
-                        color: 'primary.main',
-                        transition: 'transform 0.2s',
-                        transform: expandedId === incident.id ? 'rotate(180deg)' : 'none',
+                        mb: 1, 
+                        fontSize: { xs: '1.2rem', sm: '1.4rem' },
+                        fontWeight: 600,
+                        color: 'primary.main'
                       }}
                     >
-                      {expandedId === incident.id ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                    </IconButton>
-                  </Tooltip>
-                  <Box sx={{ flex: 1 }}>
-                    <Typography variant="h6" component="div" sx={{ mb: 1, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                       {incident.title}
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: { xs: 'flex-start', sm: 'center' }, mb: 1, gap: { xs: 1, sm: 2 } }}>
+                    
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+                      {incident.title.toLowerCase().split(' ').map((word, index) => (
+                        word.length > 3 && 
+                        <Chip
+                          key={index}
+                          icon={<LocalOfferIcon sx={{ fontSize: '0.8rem' }} />}
+                          label={word}
+                          size="small"
+                          sx={{
+                            backgroundColor: 'background.paper',
+                            border: '1px solid',
+                            borderColor: 'divider',
+                            fontSize: '0.75rem',
+                            height: '24px',
+                            '& .MuiChip-label': {
+                              px: 1,
+                            },
+                            '& .MuiChip-icon': {
+                              color: 'primary.main',
+                              ml: 0.5,
+                              transform: 'rotate(0deg)',
+                              order: -1,
+                              fontSize: '0.8rem',
+                            },
+                          }}
+                        />
+                      ))}
+                    </Box>
+                    
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        color: 'text.secondary',
+                        fontSize: { xs: '0.875rem', sm: '1rem' },
+                        mb: 1.5,
+                        lineHeight: 1.6
+                      }}
+                    >
+                      {incident.description.split('.')[0]}.
+                    </Typography>
+                  </Box>
+                  
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
+                        Impact Level:
+                      </Typography>
                       <Chip
                         icon={severityConfig[incident.severity].icon}
-                        label={incident.severity}
+                        label={severityConfig[incident.severity].label}
                         size={isMobile ? "small" : "medium"}
                         sx={{ 
                           backgroundColor: `${severityConfig[incident.severity].color}15`,
@@ -236,12 +296,20 @@ export const IncidentList: React.FC<IncidentListProps> = ({
                           fontWeight: 500,
                         }}
                       />
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
+                        Report Date:
+                      </Typography>
                       <Typography 
                         variant="body2" 
-                        color="text.secondary" 
-                        sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}
+                        sx={{ 
+                          fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                          color: 'text.primary',
+                          fontWeight: 500
+                        }}
                       >
-                        Reported: {format(incident.reportedDate, 'PPP')}
+                        {format(incident.reportedDate, 'PPP')}
                       </Typography>
                     </Box>
                   </Box>
@@ -250,9 +318,22 @@ export const IncidentList: React.FC<IncidentListProps> = ({
               
               <Collapse in={expandedId === incident.id} timeout={300}>
                 <Divider sx={{ my: 2 }} />
-                <Typography variant="body1" sx={{ whiteSpace: 'pre-line', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-                  {incident.description}
-                </Typography>
+                <Box sx={{ pl: 6 }}>
+                  <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1, fontWeight: 600 }}>
+                    Full Description:
+                  </Typography>
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      whiteSpace: 'pre-line', 
+                      fontSize: { xs: '0.875rem', sm: '1rem' },
+                      color: 'text.primary',
+                      lineHeight: 1.6
+                    }}
+                  >
+                    {incident.description}
+                  </Typography>
+                </Box>
               </Collapse>
             </CardContent>
           </Card>
