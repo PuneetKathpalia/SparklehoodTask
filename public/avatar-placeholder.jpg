@@ -1,0 +1,6 @@
+/* 
+This is a placeholder for an avatar image.
+In a real implementation, you would need to:
+1. Add an actual JPG image file named "avatar-placeholder.jpg" in the public folder
+2. Or replace the src attribute in the Avatar component with your actual image URL
+*/ 
