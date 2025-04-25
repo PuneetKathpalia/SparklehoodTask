@@ -107,21 +107,35 @@ export const ReportIncidentForm: React.FC<ReportIncidentFormProps> = ({ onSubmit
         },
       }}
     >
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-        <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
-          <AddIcon sx={{ mr: 1, color: 'primary.main' }} />
-          Report New Incident
-        </Typography>
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          mb: 2,
+          cursor: 'pointer',
+          '&:hover': {
+            '& .MuiIconButton-root': {
+              backgroundColor: 'primary.main',
+              color: 'white',
+            },
+          },
+        }}
+        onClick={toggleExpand}
+      >
         <IconButton 
-          onClick={toggleExpand} 
           size="small"
           sx={{ 
             transform: isExpanded ? 'rotate(45deg)' : 'none',
             transition: 'transform 0.3s',
+            color: 'primary.main',
+            mr: 1,
           }}
         >
           <AddIcon />
         </IconButton>
+        <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
+          Report New Incident
+        </Typography>
       </Box>
 
       <Collapse in={isExpanded} timeout={300}>
