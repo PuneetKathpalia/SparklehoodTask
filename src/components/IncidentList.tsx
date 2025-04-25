@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   Typography,
-  Grid,
   Collapse,
   Chip,
   IconButton,
@@ -102,7 +101,7 @@ export const IncidentList: React.FC<IncidentListProps> = ({
                 />
                 <Chip 
                   label={`Low (${getSeverityCount('Low')})`} 
-                  onClick={() => handleFilterChange('Low')} 
+                  onClick={() => handleFilterChange('Low' as Severity)} 
                   sx={{ 
                     backgroundColor: filterValue === 'Low' ? severityConfig.Low.color + '15' : 'transparent',
                     color: filterValue === 'Low' ? severityConfig.Low.color : 'text.primary',
@@ -112,7 +111,7 @@ export const IncidentList: React.FC<IncidentListProps> = ({
                 />
                 <Chip 
                   label={`Medium (${getSeverityCount('Medium')})`} 
-                  onClick={() => handleFilterChange('Medium')} 
+                  onClick={() => handleFilterChange('Medium' as Severity)} 
                   sx={{ 
                     backgroundColor: filterValue === 'Medium' ? severityConfig.Medium.color + '15' : 'transparent',
                     color: filterValue === 'Medium' ? severityConfig.Medium.color : 'text.primary',
@@ -122,7 +121,7 @@ export const IncidentList: React.FC<IncidentListProps> = ({
                 />
                 <Chip 
                   label={`High (${getSeverityCount('High')})`} 
-                  onClick={() => handleFilterChange('High')} 
+                  onClick={() => handleFilterChange('High' as Severity)} 
                   sx={{ 
                     backgroundColor: filterValue === 'High' ? severityConfig.High.color + '15' : 'transparent',
                     color: filterValue === 'High' ? severityConfig.High.color : 'text.primary',
